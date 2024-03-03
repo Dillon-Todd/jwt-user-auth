@@ -2,6 +2,7 @@ package com.jwtauth.Auth.controllers
 
 import com.jwtauth.Auth.DTO.AuthenticateDTO
 import com.jwtauth.Auth.DTO.RegisterDTO
+import com.jwtauth.Auth.DTO.UserDTO
 import com.jwtauth.Auth.models.AuthResponse
 import com.jwtauth.Auth.services.AuthService
 import org.springframework.beans.factory.annotation.Autowired
@@ -49,6 +50,11 @@ class AuthController {
     @PreAuthorize("hasAuthority('ADMIN')")
     String admin() {
         return "you have an admin role"
+    }
+
+    @GetMapping("/currentuser")
+    ResponseEntity<UserDTO> getCurrentUser() {
+        return ResponseEntity.ok(authService.currentUser)
     }
 
 }

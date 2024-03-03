@@ -2,12 +2,14 @@ package com.jwtauth.Auth.services
 
 import com.jwtauth.Auth.DTO.AuthenticateDTO
 import com.jwtauth.Auth.DTO.RegisterDTO
+import com.jwtauth.Auth.DTO.UserDTO
 import com.jwtauth.Auth.models.AuthResponse
 import com.jwtauth.Auth.models.User
 import com.jwtauth.Auth.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -38,5 +40,10 @@ class AuthService {
         User user = userRepository.findByUsername(req.username).orElseThrow { new UsernameNotFoundException("User not found") }
         String token = jwtService.generateToken(user)
         return new AuthResponse(token, user.userId)
+    }
+
+    UserDTO getCurrentUser() {
+        User user = SecurityContextHolder.context.authentication.principal as User
+        return new UserDTO(user.userId, user.username, user.name, user.role)
     }
 }

@@ -1,5 +1,6 @@
 package com.jwtauth.Auth.models
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -23,6 +24,7 @@ class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID userId
+    @Column(unique = true)
     String username
     String password
     String name
