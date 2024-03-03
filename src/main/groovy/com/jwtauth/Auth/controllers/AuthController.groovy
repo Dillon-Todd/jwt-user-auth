@@ -41,13 +41,13 @@ class AuthController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     String user() {
         return "you have a user role"
     }
 
     @GetMapping("/admin")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     String admin() {
         return "you have an admin role"
     }

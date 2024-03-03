@@ -26,7 +26,7 @@ class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf { csrfConfig -> csrfConfig.disable()}
         http.authorizeHttpRequests { matcherRegistry ->
-            matcherRegistry.requestMatchers("api/login/**", "api/register/**", "api/public/**", "api/users/**").permitAll()
+            matcherRegistry.requestMatchers("api/login/**", "api/register/**", "api/public/**").permitAll()
             matcherRegistry.anyRequest().authenticated()
         }
         http.userDetailsService(userService)

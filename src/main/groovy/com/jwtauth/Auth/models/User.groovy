@@ -17,8 +17,18 @@ import org.springframework.security.core.userdetails.UserDetails
 class User implements UserDetails {
 
     enum Role {
-        USER,
-        ADMIN
+        USER("USER"),
+        ADMIN("ADMIN")
+
+        String value
+
+        Role(String value) {
+            this.value = value
+        }
+
+        String getValue() {
+            return value
+        }
     }
 
     @Id
@@ -43,7 +53,7 @@ class User implements UserDetails {
 
     @Override
     Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()))
+        return List.of(new SimpleGrantedAuthority(role.value))
     }
 
     @Override
